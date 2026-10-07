@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Birthday Quest 🎂</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Floating background particles -->
+    <div id="particles"></div>
+
+    <!-- =========================
+         LOADING SCREEN
+    ========================== -->
+
+    <section id="loadingScreen" class="screen active">
+
+        <div class="loading-box">
+
+            <div class="loading-star">✦</div>
+
+            <h1>Preparing something...</h1>
+
+            <p id="loadingText">
+                Gathering birthday magic...
+            </p>
+
+            <div class="progress-container">
+                <div id="progressBar"></div>
+            </div>
+
+            <p class="loading-percent">
+                <span id="progressNumber">0</span>%
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         WELCOME SCREEN
+    ========================== -->
+
+    <section id="welcomeScreen" class="screen">
+
+        <div class="welcome-content">
+
+            <div class="tiny-stars">✦ · ˚ ✧ · ˚ ✦</div>
+
+            <p class="small-label">
+                A little something made for you
+            </p>
+
+            <h1>
+                Welcome to<br>
+                <span>Birthday Quest</span>
+            </h1>
+
+            <p class="welcome-text">
+                Someone has prepared a tiny adventure for you...
+                but you'll have to discover it yourself. 👀
+            </p>
+
+            <button id="startButton" class="main-button">
+                ENTER THE QUEST ✨
+            </button>
+
+            <p class="tap-hint">
+                🔊 Sound begins when you enter
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         ADVENTURE MAP
+    ========================== -->
+
+    <section id="mapScreen" class="screen">
+
+        <header class="top-bar">
+
+            <div>
+                <p class="map-label">BIRTHDAY QUEST</p>
+                <h2>Choose your adventure</h2>
+            </div>
+
+            <div class="heart-counter">
+                💗 <span id="heartCount">0</span>/3
+            </div>
+
+        </header>
+
+
+        <div class="map-intro">
+
+            <p>
+                Nothing is in the right order...
+            </p>
+
+            <span>
+                So explore whatever catches your attention. 👀
+            </span>
+
+        </div>
+
+
+        <div class="adventure-map">
+
+            <!-- CHAOS ROOM -->
+
+            <button
+                class="map-card chaos-card"
+                data-room="chaos"
+            >
+
+                <div class="card-icon">🎮</div>
+
+                <div class="card-text">
+                    <h3>Chaos Room</h3>
+                    <p>Games, questions & nonsense</p>
+                </div>
+
+                <span class="card-arrow">→</span>
+
+            </button>
+
+
+            <!-- MEMORY GARDEN -->
+
+            <button
+                class="map-card memory-card"
+                data-room="memory"
+            >
+
+                <div class="card-icon">📸</div>
+
+                <div class="card-text">
+                    <h3>Memory Garden</h3>
+                    <p>Something is hiding here...</p>
+                </div>
+
+                <span class="card-arrow">→</span>
+
+            </button>
+
+
+            <!-- SECRET CINEMA -->
+
+            <button
+                class="map-card cinema-card"
+                data-room="cinema"
+            >
+
+                <div class="card-icon">🎬</div>
+
+                <div class="card-text">
+                    <h3>Secret Cinema</h3>
+                    <p>There's a video behind this door</p>
+                </div>
+
+                <span class="card-arrow">→</span>
+
+            </button>
+
+
+            <!-- FINAL DOOR -->
+
+            <button
+                class="map-card final-card"
+                data-room="final"
+            >
+
+                <div class="card-icon">🔐</div>
+
+                <div class="card-text">
+                    <h3>Final Door</h3>
+                    <p id="finalDoorText">
+                        Locked • collect 3 hearts
+                    </p>
+                </div>
+
+                <span class="card-arrow">→</span>
+
+            </button>
+
+        </div>
+
+
+        <div class="map-bottom">
+
+            <p>
+                💗 Hearts collected:
+                <strong id="bottomHeartCount">0</strong>
+            </p>
+
+            <button id="musicButton" class="music-button">
+                🔊 Music ON
+            </button>
+
+        </div>
+
+    </section>
+
+
+<!-- =========================
+     CHAOS ROOM
+========================== -->
+
+<section id="chaosScreen" class="screen">
+
+    <div class="game-box">
+
+        <div class="game-top">
+
+            <button id="chaosBackButton" class="small-button">
+                ← Map
+            </button>
+
+            <div class="game-hearts">
+                💗 <span id="chaosHeartCount">0</span>/1
+            </div>
+
+        </div>
+
+
+        <!-- CHAOS INTRO -->
+
+        <div id="chaosIntro" class="game-stage active-stage">
+
+            <div class="game-icon">
+                🎮
+            </div>
+
+            <p class="game-label">
+                CHAOS ROOM
+            </p>
+
+            <h2>
+                Okay... let's see
+                what you've got. 👀
+            </h2>
+
+            <p>
+                Three completely unnecessary challenges
+                stand between you and your first heart.
+            </p>
+
+            <button id="beginChaosButton" class="main-button">
+                LET'S CAUSE CHAOS
+            </button>
+
+        </div>
+
+
+        <!-- GAME 1 -->
+
+        <div id="quizStage" class="game-stage">
+
+            <p class="game-label">
+                CHALLENGE 01
+            </p>
+
+            <h2>
+                Very important question...
+            </h2>
+
+            <p id="quizQuestion">
+                Loading question...
+            </p>
+
+            <div id="quizAnswers" class="answer-grid"></div>
+
+            <p id="quizReaction" class="reaction"></p>
+
+        </div>
+
+
+        <!-- GAME 2 -->
+
+        <div id="heartStage" class="game-stage">
+
+            <p class="game-label">
+                CHALLENGE 02
+            </p>
+
+            <h2>
+                Catch the hearts! 💗
+            </h2>
+
+            <p>
+                Catch <strong>5</strong> before they escape.
+            </p>
+
+            <div id="heartArena">
+
+                <button id="movingHeart">
+                    💗
+                </button>
+
+            </div>
+
+            <p class="score-text">
+                Hearts caught:
+                <strong>
+                    <span id="caughtCount">0</span>/5
+                </strong>
+            </p>
+
+        </div>
+
+
+        <!-- GAME 3 -->
+
+        <div id="dontPressStage" class="game-stage">
+
+            <p class="game-label">
+                FINAL CHALLENGE
+            </p>
+
+            <h2>
+                Whatever you do...
+            </h2>
+
+            <div class="warning-box">
+                ⚠️
+                <br>
+                DO NOT PRESS THE BUTTON
+            </div>
+
+            <button id="dontPressButton" class="danger-button">
+                DO NOT PRESS
+            </button>
+
+            <p id="dontPressReaction" class="reaction"></p>
+
+        </div>
+
+
+        <!-- SUCCESS -->
+
+        <div id="chaosComplete" class="game-stage">
+
+            <div class="success-icon">
+                💗
+            </div>
+
+            <p class="game-label">
+                CHAOS COMPLETE
+            </p>
+
+            <h2>
+                You found a heart!
+            </h2>
+
+            <p>
+                Unfortunately, this means you are now
+                officially part of the adventure. 😂
+            </p>
+
+            <button id="claimHeartButton" class="main-button">
+                CLAIM MY HEART 💗
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     MEMORY GARDEN
+     ============================ -->
+
+<section id="memoryScreen" class="screen">
+
+    <button id="memoryBackButton" class="back-button">
+        ← Back to Map
+    </button>
+
+    <div class="memory-intro">
+
+        <div class="memory-galaxy-icon">
+            ✨
+        </div>
+
+        <h1>Memory Garden</h1>
+
+        <p>
+            There are 8 little memories hidden here...
+        </p>
+
+        <div class="memory-counter">
+            <span id="memoryCount">0</span> / 8
+            memories discovered
+        </div>
+
+    </div>
+
+
+    <!-- MEMORY WORLD -->
+
+    <div id="memoryWorld" class="memory-world">
+
+        <div class="memory-hint">
+            ✨ Tap the glowing memories
+        </div>
+
+
+        <button class="memory-orb orb-1" data-memory="0">
+            <span>🌸</span>
+        </button>
+
+        <button class="memory-orb orb-2" data-memory="1">
+            <span>✨</span>
+        </button>
+
+        <button class="memory-orb orb-3" data-memory="2">
+            <span>🌷</span>
+        </button>
+
+        <button class="memory-orb orb-4" data-memory="3">
+            <span>💫</span>
+        </button>
+
+        <button class="memory-orb orb-5" data-memory="4">
+            <span>🌺</span>
+        </button>
+
+        <button class="memory-orb orb-6" data-memory="5">
+            <span>⭐</span>
+        </button>
+
+        <button class="memory-orb orb-7" data-memory="6">
+            <span>🌼</span>
+        </button>
+
+        <button class="memory-orb orb-8" data-memory="7">
+            <span>💗</span>
+        </button>
+
+    </div>
+
+
+    <!-- MEMORY REVEAL -->
+
+    <div id="memoryReveal" class="memory-reveal">
+
+        <div class="memory-reveal-card">
+
+            <button
+                id="closeMemory"
+                class="close-memory"
+            >
+                ✕
+            </button>
+
+
+            <div class="memory-photo">
+
+                <img
+                    id="memoryImage"
+                    src=""
+                    alt="Memory"
+                >
+
+            </div>
+
+
+            <div class="memory-number">
+                MEMORY DISCOVERED ✨
+            </div>
+
+
+            <h2 id="memoryTitle">
+                A little memory
+            </h2>
+
+
+            <p id="memoryMessage">
+                Some moments deserve to be remembered.
+            </p>
+
+
+            <button
+                id="collectMemory"
+                class="main-button"
+            >
+                Collect Memory 💗
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- FINAL MEMORY SCREEN -->
+
+    <div id="memoryComplete" class="memory-complete">
+
+        <div class="complete-stars">
+            ✨ 💫 ✨
+        </div>
+
+        <div class="complete-icon">
+            🌸
+        </div>
+
+        <h2>
+            You found them all! 🥹
+        </h2>
+
+        <p>
+            Eight memories...
+            and somehow they all led here.
+        </p>
+
+        <p class="complete-small">
+            But wait...
+            there's something else hidden in this garden. 👀
+        </p>
+
+        <button
+            id="memoryHeartButton"
+            class="main-button"
+        >
+            Take the Heart 💗
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     SECRET CINEMA
+     ============================ -->
+
+<section id="cinemaScreen" class="screen">
+
+    <!-- Back button -->
+    <button id="cinemaBackButton" class="back-button">
+        ← Back to Map
+    </button>
+
+
+    <!-- CINEMA INTRO -->
+
+    <div class="cinema-intro">
+
+        <div class="cinema-icon">
+            🎬
+        </div>
+
+        <h1>Secret Cinema</h1>
+
+        <p>
+            Welcome to the smallest cinema
+            with the biggest secrets... 👀
+        </p>
+
+        <div class="cinema-progress">
+            <span id="cinemaCount">0</span> / 2
+            reels discovered
+        </div>
+
+    </div>
+
+
+    <!-- CINEMA SCREEN -->
+
+    <div class="cinema-room">
+
+        <div class="cinema-lights">
+            ✨ &nbsp; ✨ &nbsp; ✨
+        </div>
+
+        <div class="movie-screen">
+
+            <div class="screen-glow"></div>
+
+            <div id="cinemaPlaceholder">
+                🎞️
+                <span>Choose a reel below</span>
+            </div>
+
+            <video
+                id="cinemaVideo"
+                controls
+                playsinline
+            >
+            </video>
+
+        </div>
+
+
+        <!-- MOVIE SEATS -->
+
+        <div class="cinema-seats">
+            🪑 🪑 🪑 🪑 🪑
+        </div>
+
+    </div>
+
+
+    <!-- REEL SELECTION -->
+
+    <div class="reel-container">
+
+        <h2>🎞️ Hidden Reels</h2>
+
+        <p class="reel-subtitle">
+            Two little moments are waiting for you...
+        </p>
+
+
+        <div class="reel-grid">
+
+            <button
+                class="reel-card"
+                data-reel="0"
+            >
+
+                <div class="reel-icon">
+                    🎞️
+                </div>
+
+                <div class="reel-info">
+                    <h3>Reel #1</h3>
+                    <p>A secret moment</p>
+                </div>
+
+                <span class="reel-lock">
+                    🔒
+                </span>
+
+            </button>
+
+
+            <button
+                class="reel-card"
+                data-reel="1"
+            >
+
+                <div class="reel-icon">
+                    🎬
+                </div>
+
+                <div class="reel-info">
+                    <h3>Reel #2</h3>
+                    <p>Another little secret</p>
+                </div>
+
+                <span class="reel-lock">
+                    🔒
+                </span>
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- CINEMA COMPLETION -->
+
+    <div id="cinemaComplete" class="cinema-complete">
+
+        <div class="cinema-complete-icon">
+            🍿
+        </div>
+
+        <h2>
+            That's a wrap! 🎬
+        </h2>
+
+        <p>
+            You discovered both hidden reels.
+        </p>
+
+        <p class="cinema-small">
+            But every good movie needs one final scene...
+            👀
+        </p>
+
+        <button
+            id="cinemaHeartButton"
+            class="main-button"
+        >
+            Collect the Heart 💗
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     GENERIC ROOM SCREEN
+========================== -->
+
+
+
+<section id="roomScreen" class="screen">
+
+    <div class="room-box">
+
+        <div id="roomIcon" class="room-big-icon">
+            ✨
+        </div>
+
+        <h2 id="roomTitle">
+            Room
+        </h2>
+
+        <p id="roomDescription">
+            This room is still being prepared...
+        </p>
+
+        <button id="backButton" class="main-button">
+            ← BACK TO MAP
+        </button>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     FINAL DOOR
+     ============================ -->
+
+<section id="finalScreen" class="screen">
+
+    <button id="finalBackButton" class="back-button">
+        ← Back to Map
+    </button>
+
+
+    <div class="final-door-intro">
+
+        <div class="final-lock-icon">
+            🔐
+        </div>
+
+        <h1>The Final Door</h1>
+
+        <p>
+            You've made it this far...
+        </p>
+
+        <p class="final-question">
+            But are you ready to see what's behind it? 👀
+        </p>
+
+    </div>
+
+
+    <!-- DOOR -->
+
+    <div class="final-door-area">
+
+        <div id="finalDoor" class="final-door">
+
+            <div class="door-glow"></div>
+
+            <div class="door-symbol">
+                💗
+            </div>
+
+            <div class="door-handle">
+                ●
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- REQUIREMENT -->
+
+    <div id="finalRequirement" class="final-requirement">
+
+        <div class="final-heart-display">
+            💗
+        </div>
+
+        <h2>
+            Something is still missing...
+        </h2>
+
+        <p>
+            Explore every part of the adventure
+            and collect all the hearts first.
+        </p>
+
+        <div class="final-heart-count">
+            <span id="finalHeartCount">0</span>
+            hearts collected
+        </div>
+
+    </div>
+
+
+    <!-- FINAL REVEAL -->
+
+    <div id="finalReveal" class="final-reveal">
+
+        <div class="reveal-sparkles">
+            ✨ 💫 ✨
+        </div>
+
+        <div class="birthday-icon">
+            🎂
+        </div>
+
+        <h1>
+            Happy Birthday! 🥳
+        </h1>
+
+        <p class="birthday-message">
+            You made it all the way to the end...
+            but honestly, the best part was
+            creating this little adventure for you. 💗
+        </p>
+
+        <p class="birthday-message-small">
+            I hope this little world made you smile. ✨
+        </p>
+
+
+       <!-- ✨ SPECIAL MEMORY -->
+
+<button
+    id="specialMemoryButton"
+    class="special-memory-button"
+>
+    ✨ There's one more thing...
+</button>
+
+
+<!-- ✨ SPECIAL MEMORY REVEAL -->
+
+<div
+    id="specialMemoryReveal"
+    class="special-memory-reveal"
+>
+
+    <div class="special-memory-card">
+
+        <div class="special-memory-sparkles">
+            ✨ 💫 ✨
+        </div>
+
+        <button
+            id="closeSpecialMemory"
+            class="close-special-memory"
+        >
+            ✕
+        </button>
+
+        <h2>
+            One last little surprise... 💗
+        </h2>
+
+        <div class="special-memory-photo">
+
+            <img
+                id="specialMemoryImage"
+                src="/photos/photo9.jpg"
+                alt="A special memory"
+            >
+
+        </div>
+
+        <p>
+            Some memories are worth keeping forever. ✨
+        </p>
+
+        <p class="special-memory-message">
+            And this little adventure was made
+            just to make your birthday a little more special. 🥹
+        </p>
+
+        <div class="final-ending">
+            🎉 Birthday Quest Complete! 🎉
+        </div>
+
+    </div>
+
+</div>
+
+
+<button
+    id="restartAdventure"
+    class="main-button"
+>
+    Replay the Adventure 🔄
+</button>
+
+    </div>
+
+</section>
+
+
+<script src="script.js"></script>
+
+   
+
+</body>
+</html>
